@@ -1,0 +1,19 @@
+[ca.letsencrypt]
+# comment out to use the real Let's Encrypt
+directory = "https://acme-staging-v02.api.letsencrypt.org/directory"
+account_key = "/etc/trust-acme/letsencrypt_account.pk8"
+account_email = "hostmaster@example.com"
+
+[trustdns.default]
+server = "[::1]:53"
+auth_key = "/etc/trust-dns/keys/dns_auth.pk8"
+
+[[cert]]
+zone = "example.com"
+# whether there should be an additional openssl-style pem key (example.com.key)
+pem_key = true
+reload = ["nginx"]
+san = [
+    { name = "example.com", tcp = [443] },
+    { name = "www.example.com", tcp = [443] },
+]
